@@ -8,7 +8,7 @@ import GameOfLife from "../components/GameOfLife";
 const HomePage = () => {
     return (
         <div className="homepage">
-            <GameOfLife />
+            <P5Component />
             <Name />
             <h1>Boilerplate Axel</h1> 
             <p>react + vite + react-router + P5.js</p>

@@ -9,68 +9,86 @@ const P5Component = () => {
       let grid;
       let cols;
       let rows;
-      let resolution = 10; // Taille d'une cellule
+      let resolution = 8; // Taille d'une cellule augmentée
+      let liveCellsCount = 0; // Compteur de cellules vivantes
+      let gameStarted = false; // Le jeu commence après 5 secondes
 
       p.setup = () => {
         p.createCanvas(p.windowWidth, p.windowHeight); // Adapter la taille du canvas à la fenêtre
-        p.frameRate(10); // Fixer la vitesse d'exécution à 10 FPS
-        cols = Math.floor(p.width / resolution);
-        rows = Math.floor(p.height / resolution);
+        p.frameRate(10);
+        cols = Math.floor(p.width / resolution); // Calculer le nombre de colonnes
+        rows = Math.floor(p.height / resolution); // Calculer le nombre de lignes
 
-        // Initialiser une grille vide
+        // Initialiser la grille
         grid = make2DArray(cols, rows);
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
-            grid[i][j] = 0; // Commencer avec toutes les cellules mortes
+            grid[i][j] = 0; // Toutes les cellules sont initialement mortes
           }
         }
 
-        // Ajouter un oscillateur "Pulsar" au centre de la grille
-        let midX = Math.floor(cols / 2);
-        let midY = Math.floor(rows / 2);
+        // Fonction pour générer un pulsar à partir d'une position centrale
+        function createPulsar(midX, midY) {
+          let pulsarPattern = [
+            [midX - 6, midY - 4], [midX - 6, midY - 3], [midX - 6, midY - 2],
+            [midX - 4, midY - 6], [midX - 3, midY - 6], [midX - 2, midY - 6],
+            [midX - 1, midY - 4], [midX - 1, midY - 3], [midX - 1, midY - 2],
+            [midX - 4, midY - 1], [midX - 3, midY - 1], [midX - 2, midY - 1],
+            [midX - 6, midY + 2], [midX - 6, midY + 3], [midX - 6, midY + 4],
+            [midX - 4, midY + 6], [midX - 3, midY + 6], [midX - 2, midY + 6],
+            [midX - 1, midY + 2], [midX - 1, midY + 3], [midX - 1, midY + 4],
+            [midX - 4, midY + 1], [midX - 3, midY + 1], [midX - 2, midY + 1],
+            [midX + 1, midY - 4], [midX + 1, midY - 3], [midX + 1, midY - 2],
+            [midX + 2, midY - 6], [midX + 3, midY - 6], [midX + 4, midY - 6],
+            [midX + 6, midY - 4], [midX + 6, midY - 3], [midX + 6, midY - 2],
+            [midX + 2, midY - 1], [midX + 3, midY - 1], [midX + 4, midY - 1],
+            [midX + 1, midY + 2], [midX + 1, midY + 3], [midX + 1, midY + 4],
+            [midX + 2, midY + 6], [midX + 3, midY + 6], [midX + 4, midY + 6],
+            [midX + 6, midY + 2], [midX + 6, midY + 3], [midX + 6, midY + 4],
+            [midX + 2, midY + 1], [midX + 3, midY + 1], [midX + 4, midY + 1]
+          ];
 
-        // Motif "Pulsar" (forme rare d'oscillateur avec période 3)
-        let pulsarPattern = [
-          [midX - 6, midY - 4], [midX - 6, midY - 3], [midX - 6, midY - 2],
-          [midX - 4, midY - 6], [midX - 3, midY - 6], [midX - 2, midY - 6],
-          [midX - 1, midY - 4], [midX - 1, midY - 3], [midX - 1, midY - 2],
-          [midX - 4, midY - 1], [midX - 3, midY - 1], [midX - 2, midY - 1],
+          pulsarPattern.forEach(([x, y]) => {
+            grid[x][y] = 1; // Activer les cellules du pulsar
+          });
+        }
 
-          [midX - 6, midY + 2], [midX - 6, midY + 3], [midX - 6, midY + 4],
-          [midX - 4, midY + 6], [midX - 3, midY + 6], [midX - 2, midY + 6],
-          [midX - 1, midY + 2], [midX - 1, midY + 3], [midX - 1, midY + 4],
-          [midX - 4, midY + 1], [midX - 3, midY + 1], [midX - 2, midY + 1],
+        // Placer un pulsar à gauche et un autre à droite
+        let leftPulsarX = Math.floor(cols / 4); // Positionner le pulsar gauche
+        let rightPulsarX = Math.floor((cols / 4) * 3); // Positionner le pulsar droite
+        let pulsarY = Math.floor(rows / 2); // Centrer verticalement
 
-          [midX + 1, midY - 4], [midX + 1, midY - 3], [midX + 1, midY - 2],
-          [midX + 2, midY - 6], [midX + 3, midY - 6], [midX + 4, midY - 6],
-          [midX + 6, midY - 4], [midX + 6, midY - 3], [midX + 6, midY - 2],
-          [midX + 2, midY - 1], [midX + 3, midY - 1], [midX + 4, midY - 1],
+        createPulsar(leftPulsarX, pulsarY); // Créer le pulsar à gauche
+        createPulsar(rightPulsarX, pulsarY); // Créer le pulsar à droite
 
-          [midX + 1, midY + 2], [midX + 1, midY + 3], [midX + 1, midY + 4],
-          [midX + 2, midY + 6], [midX + 3, midY + 6], [midX + 4, midY + 6],
-          [midX + 6, midY + 2], [midX + 6, midY + 3], [midX + 6, midY + 4],
-          [midX + 2, midY + 1], [midX + 3, midY + 1], [midX + 4, midY + 1]
-        ];
+        // Afficher l'état initial sans évolution
+        drawGrid(p, grid, cols, rows, resolution);
 
-        // Placer les cellules vivantes pour le Pulsar
-        pulsarPattern.forEach(([x, y]) => {
-          grid[x][y] = 1;
-        });
-
+        // Démarrer le jeu après 5 secondes
+        setTimeout(() => {
+          gameStarted = true;
+        }, 5000);
       };
 
       p.draw = () => {
-        p.background(0); // Fond noir
+        if (!gameStarted) {
+          // Tant que le jeu n'a pas commencé, l'affichage reste statique
+          return;
+        }
 
-        // Dessiner la grille
+        p.background(0);
+        liveCellsCount = 0; // Réinitialiser le compteur à chaque frame
+
+        // Dessiner la grille et compter les cellules vivantes
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
             let x = i * resolution;
             let y = j * resolution;
             if (grid[i][j] === 1) {
-              p.fill(255); // Cellule vivante (blanche)
+              p.fill(200); // Cellule vivante (blanche)
               p.stroke(0);
               p.rect(x, y, resolution, resolution); // Dessiner un carré
+              liveCellsCount++; // Incrémenter le compteur pour chaque cellule vivante
             }
           }
         }
@@ -97,19 +115,41 @@ const P5Component = () => {
 
         // Mettre à jour la grille
         grid = next;
+
+        // Afficher le compteur de cellules vivantes en bas à droite
+        p.fill(255);
+        p.textSize(16);
+        p.textAlign(p.RIGHT, p.BOTTOM);
+        p.text(`Cellules vivantes: ${liveCellsCount}`, p.width - 20, p.height - 20);
       };
+
+      // Fonction pour dessiner la grille statique
+      function drawGrid(p, grid, cols, rows, resolution) {
+        p.background(0);
+        for (let i = 0; i < cols; i++) {
+          for (let j = 0; j < rows; j++) {
+            let x = i * resolution;
+            let y = j * resolution;
+            if (grid[i][j] === 1) {
+              p.fill(200); // Cellule vivante (blanche)
+              p.stroke(0);
+              p.rect(x, y, resolution, resolution); // Dessiner un carré
+            }
+          }
+        }
+      }
 
       // Ajuster la taille du canvas lors du redimensionnement de la fenêtre
       p.windowResized = () => {
         p.resizeCanvas(p.windowWidth, p.windowHeight); // Redimensionner le canvas
-        cols = Math.floor(p.width / resolution);
-        rows = Math.floor(p.height / resolution);
+        cols = Math.floor(p.width / resolution); // Recalculer le nombre de colonnes
+        rows = Math.floor(p.height / resolution); // Recalculer le nombre de lignes
 
         // Réinitialiser la grille après redimensionnement
         grid = make2DArray(cols, rows);
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
-            grid[i][j] = 0; // Commencer avec toutes les cellules mortes
+            grid[i][j] = p.floor(p.random(2)); // Remplir aléatoirement les cellules
           }
         }
       };

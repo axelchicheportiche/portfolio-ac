@@ -20,6 +20,8 @@ Make sure you have Node.js installed on your system. If you don't have it yet, y
 git clone https://github.com/axelchicheportiche/boilerplate-react-router-vite-p5.git
 cd boilerplate-react
 npm install
+npm install react-router-dom
+npm install p5
 npm run dev
 ```
 This will start the Vite development server. You can now visit the app at http://localhost:5173 (default port for Vite).
