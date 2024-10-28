@@ -1,3 +1,71 @@
 .homepage {
     margin: 0;
 }
+.game-of-life, .name {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* background: #000; */
+    color: #fff;
+    font-family: "Courier New", monospace;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    animation: flicker 0.15s infinite alternate;
+}
+
+/* Effet de lignes de balayage */
+.game-of-life::before, .name::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.2) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    z-index: 2;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+}
+
+/* Effet de grain statique */
+.game-of-life::after, .name::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/noise.png'); 
+    opacity: 0.2;
+    z-index: 1;
+    pointer-events: none;
+    animation: static 0.2s steps(2) infinite;
+}
+
+/* Animation de grain statique */
+@keyframes static {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+    100% { opacity: 0.2; }
+}
+
+/* Animation de flicker */
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.95; }
+    100% { opacity: 1; }
+}
+
+/* Déformation et léger flou */
+.game-of-life, .name {
+    filter: blur(1px) contrast(1.2) brightness(1.1);
+}

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import p5 from 'p5';
 
-const GameOfLife = () => {
+const P5Component = () => {
   const sketchRef = useRef();
 
   useEffect(() => {
@@ -9,38 +9,57 @@ const GameOfLife = () => {
       let grid;
       let cols;
       let rows;
-      let resolution = 4; // Taille d'une cellule
-      let liveCellsCount = 0; // Compteur de cellules vivantes
+      let resolution = 10; // Taille d'une cellule
 
       p.setup = () => {
         p.createCanvas(p.windowWidth, p.windowHeight); // Adapter la taille du canvas à la fenêtre
-        p.frameRate(10);
-        cols = Math.floor(p.width / resolution); // Calculer le nombre de colonnes
-        rows = Math.floor(p.height / resolution); // Calculer le nombre de lignes
+        p.frameRate(10); // Fixer la vitesse d'exécution à 10 FPS
+        cols = Math.floor(p.width / resolution);
+        rows = Math.floor(p.height / resolution);
 
-        // Initialiser la grille
+        // Initialiser une grille vide
         grid = make2DArray(cols, rows);
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
-            grid[i][j] = p.random() < 0.1 ? 1 : 0;  // Remplir aléatoirement les cellules
+            grid[i][j] = 0; // Commencer avec toutes les cellules mortes
           }
         }
+
+        // Ajouter un oscillateur "Pulsar" au centre de la grille
+        let midX = Math.floor(cols / 2);
+        let midY = Math.floor(rows / 2);
+
+        // Motif "Pulsar" (forme rare d'oscillateur avec période 3)
+        let pattern = [
+          [midX + 27, midY + 0], [midX + 28, midY + 0], [midX + 27, midY + 1],
+          [midX + 29, midY + 1], [midX + 29, midY + 2], [midX + 34, midY + 2],
+          [midX + 35, midY + 2], [midX + 25, midY + 3], [midX + 26, midY + 3],
+          [midX + 27, midY + 3], [midX + 28, midY + 3], [midX + 30, midY + 3],
+          [midX + 31, midY + 3], [midX + 34, midY + 3], [midX + 37, midY + 3],
+          // (…)
+          [midX + 35, midY + 56], [midX + 35, midY + 57], [midX + 37, midY + 57],
+          [midX + 36, midY + 58], [midX + 37, midY + 58]
+      ];
+
+        // Placer les cellules vivantes pour le Pulsar
+        pulsarPattern.forEach(([x, y]) => {
+          grid[x][y] = 1;
+        });
+
       };
 
       p.draw = () => {
-        p.background(0);
-        liveCellsCount = 0; // Réinitialiser le compteur à chaque frame
+        p.background(0); // Fond noir
 
-        // Dessiner la grille et compter les cellules vivantes
+        // Dessiner la grille
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
             let x = i * resolution;
             let y = j * resolution;
             if (grid[i][j] === 1) {
-              p.fill(200); // Cellule vivante (blanche)
+              p.fill(255); // Cellule vivante (blanche)
               p.stroke(0);
               p.rect(x, y, resolution, resolution); // Dessiner un carré
-              liveCellsCount++; // Incrémenter le compteur pour chaque cellule vivante
             }
           }
         }
@@ -67,25 +86,19 @@ const GameOfLife = () => {
 
         // Mettre à jour la grille
         grid = next;
-
-        // Afficher le compteur de cellules vivantes en bas à droite
-        p.fill(255);
-        p.textSize(16);
-        p.textAlign(p.RIGHT, p.BOTTOM);
-        p.text(`Cellules vivantes: ${liveCellsCount}`, p.width - 20, p.height - 20);
       };
 
       // Ajuster la taille du canvas lors du redimensionnement de la fenêtre
       p.windowResized = () => {
         p.resizeCanvas(p.windowWidth, p.windowHeight); // Redimensionner le canvas
-        cols = Math.floor(p.width / resolution); // Recalculer le nombre de colonnes
-        rows = Math.floor(p.height / resolution); // Recalculer le nombre de lignes
+        cols = Math.floor(p.width / resolution);
+        rows = Math.floor(p.height / resolution);
 
         // Réinitialiser la grille après redimensionnement
         grid = make2DArray(cols, rows);
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
-            grid[i][j] = p.floor(p.random(2)); // Remplir aléatoirement les cellules
+            grid[i][j] = 0; // Commencer avec toutes les cellules mortes
           }
         }
       };
@@ -124,4 +137,4 @@ const GameOfLife = () => {
   return <div ref={sketchRef}></div>;
 };
 
-export default GameOfLife;
+export default P5Component;

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import p5 from 'p5';
 
-const P5Component = () => {
+const GameOfLife = () => {
   const sketchRef = useRef();
 
   useEffect(() => {
@@ -9,13 +9,12 @@ const P5Component = () => {
       let grid;
       let cols;
       let rows;
-      let resolution = 8; // Taille d'une cellule augmentée
+      let resolution = 4; // Taille d'une cellule
       let liveCellsCount = 0; // Compteur de cellules vivantes
-      let gameStarted = false; // Le jeu commence après 5 secondes
 
       p.setup = () => {
         p.createCanvas(p.windowWidth, p.windowHeight); // Adapter la taille du canvas à la fenêtre
-        p.frameRate(10);
+        p.frameRate(12);
         cols = Math.floor(p.width / resolution); // Calculer le nombre de colonnes
         rows = Math.floor(p.height / resolution); // Calculer le nombre de lignes
 
@@ -23,61 +22,25 @@ const P5Component = () => {
         grid = make2DArray(cols, rows);
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
-            grid[i][j] = 0; // Toutes les cellules sont initialement mortes
+            grid[i][j] = p.random() < 0.1 ? 1 : 0;  // Remplir aléatoirement les cellules
           }
         }
-
-        // Fonction pour générer un pulsar à partir d'une position centrale
-        function createPulsar(midX, midY) {
-          let pulsarPattern = [
-            [midX - 6, midY - 4], [midX - 6, midY - 3], [midX - 6, midY - 2],
-            [midX - 4, midY - 6], [midX - 3, midY - 6], [midX - 2, midY - 6],
-            [midX - 1, midY - 4], [midX - 1, midY - 3], [midX - 1, midY - 2],
-            [midX - 4, midY - 1], [midX - 3, midY - 1], [midX - 2, midY - 1],
-            [midX - 6, midY + 2], [midX - 6, midY + 3], [midX - 6, midY + 4],
-            [midX - 4, midY + 6], [midX - 3, midY + 6], [midX - 2, midY + 6],
-            [midX - 1, midY + 2], [midX - 1, midY + 3], [midX - 1, midY + 4],
-            [midX - 4, midY + 1], [midX - 3, midY + 1], [midX - 2, midY + 1],
-            [midX + 1, midY - 4], [midX + 1, midY - 3], [midX + 1, midY - 2],
-            [midX + 2, midY - 6], [midX + 3, midY - 6], [midX + 4, midY - 6],
-            [midX + 6, midY - 4], [midX + 6, midY - 3], [midX + 6, midY - 2],
-            [midX + 2, midY - 1], [midX + 3, midY - 1], [midX + 4, midY - 1],
-            [midX + 1, midY + 2], [midX + 1, midY + 3], [midX + 1, midY + 4],
-            [midX + 2, midY + 6], [midX + 3, midY + 6], [midX + 4, midY + 6],
-            [midX + 6, midY + 2], [midX + 6, midY + 3], [midX + 6, midY + 4],
-            [midX + 2, midY + 1], [midX + 3, midY + 1], [midX + 4, midY + 1]
-          ];
-
-          pulsarPattern.forEach(([x, y]) => {
-            grid[x][y] = 1; // Activer les cellules du pulsar
-          });
-        }
-
-        // Placer un pulsar à gauche et un autre à droite
-        let leftPulsarX = Math.floor(cols / 4); // Positionner le pulsar gauche
-        let rightPulsarX = Math.floor((cols / 4) * 3); // Positionner le pulsar droite
-        let pulsarY = Math.floor(rows / 2); // Centrer verticalement
-
-        createPulsar(leftPulsarX, pulsarY); // Créer le pulsar à gauche
-        createPulsar(rightPulsarX, pulsarY); // Créer le pulsar à droite
-
-        // Afficher l'état initial sans évolution
-        drawGrid(p, grid, cols, rows, resolution);
-
-        // Démarrer le jeu après 5 secondes
-        setTimeout(() => {
-          gameStarted = true;
-        }, 5000);
       };
 
       p.draw = () => {
-        if (!gameStarted) {
-          // Tant que le jeu n'a pas commencé, l'affichage reste statique
-          return;
-        }
-
         p.background(0);
         liveCellsCount = 0; // Réinitialiser le compteur à chaque frame
+
+        // Palette de couleurs de l'arc-en-ciel
+        const rainbowColors = [
+          p.color(255, 0, 0),      // Rouge
+          p.color(255, 127, 0),    // Orange
+          p.color(255, 255, 0),    // Jaune
+          p.color(0, 255, 0),      // Vert
+          p.color(0, 0, 255),      // Bleu
+          p.color(75, 0, 130),     // Indigo
+          p.color(148, 0, 211),    // Violet
+        ];
 
         // Dessiner la grille et compter les cellules vivantes
         for (let i = 0; i < cols; i++) {
@@ -85,7 +48,8 @@ const P5Component = () => {
             let x = i * resolution;
             let y = j * resolution;
             if (grid[i][j] === 1) {
-              p.fill(200); // Cellule vivante (blanche)
+              // Choisir une couleur aléatoire dans la palette arc-en-ciel
+              p.fill(rainbowColors[Math.floor(p.random(rainbowColors.length))]);
               p.stroke(0);
               p.rect(x, y, resolution, resolution); // Dessiner un carré
               liveCellsCount++; // Incrémenter le compteur pour chaque cellule vivante
@@ -122,22 +86,6 @@ const P5Component = () => {
         p.textAlign(p.RIGHT, p.BOTTOM);
         p.text(`Cellules vivantes: ${liveCellsCount}`, p.width - 20, p.height - 20);
       };
-
-      // Fonction pour dessiner la grille statique
-      function drawGrid(p, grid, cols, rows, resolution) {
-        p.background(0);
-        for (let i = 0; i < cols; i++) {
-          for (let j = 0; j < rows; j++) {
-            let x = i * resolution;
-            let y = j * resolution;
-            if (grid[i][j] === 1) {
-              p.fill(200); // Cellule vivante (blanche)
-              p.stroke(0);
-              p.rect(x, y, resolution, resolution); // Dessiner un carré
-            }
-          }
-        }
-      }
 
       // Ajuster la taille du canvas lors du redimensionnement de la fenêtre
       p.windowResized = () => {
@@ -185,7 +133,7 @@ const P5Component = () => {
     };
   }, []);
 
-  return <div ref={sketchRef}></div>;
+  return <div className='game-of-life' ref={sketchRef}></div>;
 };
 
-export default P5Component;
+export default GameOfLife;

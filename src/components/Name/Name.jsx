@@ -4,7 +4,7 @@ import './Name.css';
 
 const Name = () => {
     return (
-        <h1 className="name">./Axel_Chicheportiche</h1>
+        <div className="name">./axel_chicheportiche</div>
     );
 }
 
