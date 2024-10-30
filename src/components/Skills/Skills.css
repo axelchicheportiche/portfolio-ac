@@ -1,0 +1,36 @@
+.skills-content {
+    display: inline-flex;
+    max-width: 700px;
+    padding: 48px 30px 73px 30px;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 42px;
+    flex-wrap: wrap;
+}
+
+
+.bubble-skill {
+    /* Skills-Bubble */
+    color: black;
+    padding: 2px 1em;
+    font-family: "Space Mono";
+    font-size: 19px;
+    font-style: italic;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 3.9px;
+
+    border-radius: 11px;
+    background: #D9D9D9;
+    
+    
+    /* effect */
+    cursor: text;
+    transition: transform 0.2s ease;
+}
+
+.bubble-skill:hover {
+    transform: scale(1.05);
+    background: rgba(217, 217, 217, 0.9);
+}

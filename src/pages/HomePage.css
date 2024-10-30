@@ -1,14 +1,24 @@
 .homepage {
     margin: 0;
-    display: flex;
-    /* width: 1440px; */
+    /* display: flex;
+
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
     gap: 130px;
+    flex-direction: column;
+    align-items: center; */
+    
+    display: flex;
+/* width: 1218px; */
+flex-direction: column;
+align-items: center;
+gap: 130px;
+    
 }
 .game-of-life, .name {
     position: relative;
-    width: 100%;
+    width: 100wv;
     height: 100%;
     overflow: hidden;
     /* background: #000; */

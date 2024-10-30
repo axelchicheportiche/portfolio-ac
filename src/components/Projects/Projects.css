@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Trispace:wght@100..800&display=swap');
+
+.projects-content {
+    display: flex;
+    flex-wrap: wrap;
+    /* width: 1040px; */
+    padding: 48px 41px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 51px;
+    
+}
+
+.project-box {
+    display: flex;
+    width: 300px;
+    height: 340px;
+    padding: 26px 27px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 17px; 
+    border-radius: 11px;
+    border: 2px solid var(--Projects, #131313);
+    background: #000;
+}
+
+.prj-name {
+    font-family: GrandSlang;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 5.85px;
+}
+
+.prj-description {
+    
+    font-family: "Space Mono";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 2.42px;
+    text-align: justify;
+}
+
+.prj-stack {
+    font-family: Trispace;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 2.6px;
+}
+
+.linkButton {
+  border-radius: 11px;
+  border: 1px solid transparent;
+  padding: 2px 1em;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: Trispace;
+  color: #000000;
+  background-color: #efefef;
+  transition: color 0.5s ease, border-color 0.5s ease, background-color 0.5s ease;
+  font-style: normal;
+    font-weight: 700;
+}
+
+.linkButton:hover {
+    color: #ffffff;
+    background-color: #000000;
+    border-color: #ffffff;
+    
+}
+.linkButton:focus,
+linkButton:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}

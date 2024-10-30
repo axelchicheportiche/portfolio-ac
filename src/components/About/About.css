@@ -1,6 +1,6 @@
-.about {
-    width: 773px;
-}
+/* .about {
+    max-width: 773px;
+} */
 
 .about-content {
     color: #FFF;
@@ -11,5 +11,5 @@
     font-weight: 400;
     line-height: normal;
     letter-spacing: 2.6px;
-    width: 773px;
+    max-width: 773px;
 }

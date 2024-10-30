@@ -6,17 +6,20 @@ import PulsarGOL from "../components/GameOfLifePattern/PulsarGOL";
 import GameOfLife from "../components/GameOfLifePattern/GameOfLife"; 
 import About from "../components/About/About";
 import Experience from "../components/Experience/Experience";
+import Projects from "../components/Projects/Projects";
+import Skills from "../components/Skills/Skills";
 
 const HomePage = () => {
     return (
         <div className="homepage">
             <GameOfLife />
+            <body>
             <Name />
             <About />
             <Experience />
-            <h1>Boilerplate Axel</h1> 
-            <p>react + vite + react-router + P5.js</p>
-            <p>(clean the CSS part)</p>
+            <Projects />
+            <Skills/>
+            </body>
         </div>
     );
 };
