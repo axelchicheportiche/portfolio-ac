@@ -30,16 +30,27 @@ const P5Component = () => {
         let midY = Math.floor(rows / 2);
 
         // Motif "Pulsar" (forme rare d'oscillateur avec période 3)
-        let pattern = [
-          [midX + 27, midY + 0], [midX + 28, midY + 0], [midX + 27, midY + 1],
-          [midX + 29, midY + 1], [midX + 29, midY + 2], [midX + 34, midY + 2],
-          [midX + 35, midY + 2], [midX + 25, midY + 3], [midX + 26, midY + 3],
-          [midX + 27, midY + 3], [midX + 28, midY + 3], [midX + 30, midY + 3],
-          [midX + 31, midY + 3], [midX + 34, midY + 3], [midX + 37, midY + 3],
-          // (…)
-          [midX + 35, midY + 56], [midX + 35, midY + 57], [midX + 37, midY + 57],
-          [midX + 36, midY + 58], [midX + 37, midY + 58]
-      ];
+        let pulsarPattern = [
+          [midX - 6, midY - 4], [midX - 6, midY - 3], [midX - 6, midY - 2],
+          [midX - 4, midY - 6], [midX - 3, midY - 6], [midX - 2, midY - 6],
+          [midX - 1, midY - 4], [midX - 1, midY - 3], [midX - 1, midY - 2],
+          [midX - 4, midY - 1], [midX - 3, midY - 1], [midX - 2, midY - 1],
+
+          [midX - 6, midY + 2], [midX - 6, midY + 3], [midX - 6, midY + 4],
+          [midX - 4, midY + 6], [midX - 3, midY + 6], [midX - 2, midY + 6],
+          [midX - 1, midY + 2], [midX - 1, midY + 3], [midX - 1, midY + 4],
+          [midX - 4, midY + 1], [midX - 3, midY + 1], [midX - 2, midY + 1],
+
+          [midX + 1, midY - 4], [midX + 1, midY - 3], [midX + 1, midY - 2],
+          [midX + 2, midY - 6], [midX + 3, midY - 6], [midX + 4, midY - 6],
+          [midX + 6, midY - 4], [midX + 6, midY - 3], [midX + 6, midY - 2],
+          [midX + 2, midY - 1], [midX + 3, midY - 1], [midX + 4, midY - 1],
+
+          [midX + 1, midY + 2], [midX + 1, midY + 3], [midX + 1, midY + 4],
+          [midX + 2, midY + 6], [midX + 3, midY + 6], [midX + 4, midY + 6],
+          [midX + 6, midY + 2], [midX + 6, midY + 3], [midX + 6, midY + 4],
+          [midX + 2, midY + 1], [midX + 3, midY + 1], [midX + 4, midY + 1]
+        ];
 
         // Placer les cellules vivantes pour le Pulsar
         pulsarPattern.forEach(([x, y]) => {

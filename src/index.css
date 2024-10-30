@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -30,10 +32,20 @@ body {
   min-height: 100vh;
 }
 
+
+
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  color: #FFF;
+  text-align: center;
+  font-family: GrandSlang;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
+
+
+
 
 button {
   border-radius: 8px;

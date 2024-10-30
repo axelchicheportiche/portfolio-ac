@@ -1,0 +1,15 @@
+.about {
+    width: 773px;
+}
+
+.about-content {
+    color: #FFF;
+    text-align: justify;
+    font-family: "Space Mono";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 2.6px;
+    width: 773px;
+}

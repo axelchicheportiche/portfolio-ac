@@ -1,5 +1,10 @@
 .homepage {
     margin: 0;
+    display: flex;
+    /* width: 1440px; */
+    flex-direction: column;
+    align-items: center;
+    gap: 130px;
 }
 .game-of-life, .name {
     position: relative;
@@ -69,3 +74,5 @@
 .game-of-life, .name {
     filter: blur(1px) contrast(1.2) brightness(1.1);
 }
+
+
