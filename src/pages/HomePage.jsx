@@ -1,5 +1,5 @@
 import React from "react";
-import './Homepage.css';
+import './HomePage.css';
 import P5Component from "../components/GameOfLifePattern/P5Component";
 import Name from "../components/Name/Name";
 import PulsarGOL from "../components/GameOfLifePattern/PulsarGOL"; 

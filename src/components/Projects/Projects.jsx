@@ -62,6 +62,13 @@ const data = [
     stack: "Vanilla JS - HTML+CSS  Vercel",
     buttonLink: "https://soulseek-tool.vercel.app/",
   },
+  {
+    name: "Adopte un meuble",
+    description:
+      "Développement complet d’une plateforme de vente de meubles d’occasion en équipe, de la conception à la mise en production.",
+    stack: "React, CSS, Node, Express, Sequelize",
+    buttonLink: "https://github.com/adatechschool/projet-plateforme-de-vente-de-meubles-adopteunmeuble",
+  },
 ];
 
 export default Projects;
