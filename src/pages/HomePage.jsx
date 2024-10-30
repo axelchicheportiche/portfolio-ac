@@ -13,15 +13,17 @@ import Contact from "../components/Contact/Contact";
 const HomePage = () => {
     return (
         <div className="homepage">
+            <div></div>
             <GameOfLife />
-            <body>
             <Name />
+            <div className="empty"></div>
+            <div className="container-g">
             <About />
             <Experience />
             <Projects />
             <Skills/>
             <Contact/>
-            </body>
+            </div>
         </div>
     );
 };
