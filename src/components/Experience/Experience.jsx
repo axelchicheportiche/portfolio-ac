@@ -1,4 +1,5 @@
 import { useState } from "react";
+import IconAccordion from "../../assets/img/icon-v.png";
 import "./Experience.css";
 
 const Experience = () => {
@@ -26,7 +27,7 @@ const Experience = () => {
               </div>
               <img
                 className={`icon-v ${selected === i ? "rotate" : ""}`}
-                src=".././src/assets/img/icon-v.png"
+                src={IconAccordion}
                 alt="icon-accordion"
               />
             </div>
