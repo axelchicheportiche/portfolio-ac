@@ -1,0 +1,19 @@
+
+.contact {
+    display: flex;
+    width: 1218px;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 90px;
+}
+
+
+.icon-box {
+    display: flex;
+    align-content: center;
+}
+
+.contact-icon {
+    height: 30px;
+    padding: 20px;
+}
