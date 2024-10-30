@@ -15,6 +15,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  margin: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1));
+  margin-bottom: 90px;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -25,16 +31,16 @@ a:hover {
 }
 
 .container-g {
-  
-  margin: 0;
+  margin: 0em;
   display: flex;
   flex-direction: column;
   align-items: center; 
   gap: 90px;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+ 
+  
 }
 @media (max-width: 768px) {
-  body {
+  .container-g {
       padding: 0 10px; /* Petites marges de 10px sur les côtés */
   }
 }
