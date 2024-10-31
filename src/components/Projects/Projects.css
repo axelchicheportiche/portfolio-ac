@@ -23,7 +23,7 @@
     gap: 17px; 
     border-radius: 11px;
     border: 2px solid var(--Projects, #131313);
-    background: #000;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .prj-name {
