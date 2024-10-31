@@ -9,100 +9,91 @@ const GameOfLife = () => {
       let grid;
       let cols;
       let rows;
-      let resolution = 4; // Taille d'une cellule
-      let liveCellsCount = 0; // Compteur de cellules vivantes
+      let resolution = 4;
+      let liveCellsCount = 0;
 
       p.setup = () => {
-        p.createCanvas(p.windowWidth, p.windowHeight); // Adapter la taille du canvas à la fenêtre
+        p.createCanvas(p.windowWidth, p.windowHeight);
         p.frameRate(12);
-        cols = Math.floor(p.width / resolution); // Calculer le nombre de colonnes
-        rows = Math.floor(p.height / resolution); // Calculer le nombre de lignes
+        cols = Math.floor(p.width / resolution);
+        rows = Math.floor(p.height / resolution);
 
-        // Initialiser la grille
+        // Initialisation de la grille avec cellules aléatoires
         grid = make2DArray(cols, rows);
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
-            grid[i][j] = p.random() < 0.1 ? 1 : 0;  // Remplir aléatoirement les cellules
+            grid[i][j] = p.random() < 0.1 ? 1 : 0;
           }
         }
       };
 
       p.draw = () => {
         p.background(0);
-        liveCellsCount = 0; // Réinitialiser le compteur à chaque frame
+        liveCellsCount = 0;
 
-        // Palette de couleurs de l'arc-en-ciel
+        // Grille + coloration des cellules vivantes
         const rainbowColors = [
-          p.color(255, 0, 0),      // Rouge
-          p.color(255, 127, 0),    // Orange
-          p.color(255, 255, 0),    // Jaune
-          p.color(0, 255, 0),      // Vert
-          p.color(0, 0, 255),      // Bleu
-          p.color(75, 0, 130),     // Indigo
-          p.color(148, 0, 211),    // Violet
+          p.color(255, 0, 0),
+          p.color(255, 127, 0),
+          p.color(255, 255, 0),
+          p.color(0, 255, 0),
+          p.color(0, 0, 255),
+          p.color(75, 0, 130),
+          p.color(148, 0, 211),
         ];
 
-        // Dessiner la grille et compter les cellules vivantes
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
-            let x = i * resolution;
-            let y = j * resolution;
             if (grid[i][j] === 1) {
-              // Choisir une couleur aléatoire dans la palette arc-en-ciel
               p.fill(rainbowColors[Math.floor(p.random(rainbowColors.length))]);
               p.stroke(0);
-              p.rect(x, y, resolution, resolution); // Dessiner un carré
-              liveCellsCount++; // Incrémenter le compteur pour chaque cellule vivante
+              p.rect(i * resolution, j * resolution, resolution, resolution);
+              liveCellsCount++;
             }
           }
         }
 
         let next = make2DArray(cols, rows);
 
-        // Calculer la prochaine génération
+        // Règles du jeu de la vie 
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
             let state = grid[i][j];
-            // Compter les cellules vivantes voisines
             let neighbors = countNeighbors(grid, i, j);
 
-            // Appliquer les règles du jeu
             if (state === 0 && neighbors === 3) {
-              next[i][j] = 1; // Naissance
+              next[i][j] = 1;
             } else if (state === 1 && (neighbors < 2 || neighbors > 3)) {
-              next[i][j] = 0; // Mort
+              next[i][j] = 0;
             } else {
-              next[i][j] = state; // Sinon, l'état reste le même
+              next[i][j] = state;
             }
           }
         }
 
-        // Mettre à jour la grille
         grid = next;
 
-        // Afficher le compteur de cellules vivantes en bas à droite
+        // Compteur de cellules vivantes en bas à droite
         p.fill(255);
         p.textSize(16);
         p.textAlign(p.RIGHT, p.BOTTOM);
-        p.text(`Cellules vivantes: ${liveCellsCount}`, p.width - 20, p.height - 20);
+        p.text(`Living cells: ${liveCellsCount}`, p.width - 20, p.height - 20);
       };
 
-      // Ajuster la taille du canvas lors du redimensionnement de la fenêtre
       p.windowResized = () => {
-        p.resizeCanvas(p.windowWidth, p.windowHeight); // Redimensionner le canvas
-        cols = Math.floor(p.width / resolution); // Recalculer le nombre de colonnes
-        rows = Math.floor(p.height / resolution); // Recalculer le nombre de lignes
+        p.resizeCanvas(p.windowWidth, p.windowHeight);
+        cols = Math.floor(p.width / resolution);
+        rows = Math.floor(p.height / resolution);
 
-        // Réinitialiser la grille après redimensionnement
         grid = make2DArray(cols, rows);
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
-            grid[i][j] = p.floor(p.random(2)); // Remplir aléatoirement les cellules
+            grid[i][j] = p.floor(p.random(2));
           }
         }
       };
 
-      // Fonction pour créer un tableau 2D
+      // Création tableau bidimensionnel
       function make2DArray(cols, rows) {
         let arr = new Array(cols);
         for (let i = 0; i < arr.length; i++) {
@@ -111,17 +102,17 @@ const GameOfLife = () => {
         return arr;
       }
 
-      // Compter les voisins vivants
+      // Compteur de voisins vivants autour d'une cellule donnée
       function countNeighbors(grid, x, y) {
         let sum = 0;
         for (let i = -1; i <= 1; i++) {
           for (let j = -1; j <= 1; j++) {
-            let col = (x + i + cols) % cols; // Bord en torus (continuité)
+            let col = (x + i + cols) % cols;
             let row = (y + j + rows) % rows;
             sum += grid[col][row];
           }
         }
-        sum -= grid[x][y]; // Enlever l'état de la cellule actuelle
+        sum -= grid[x][y];
         return sum;
       }
     };
@@ -129,11 +120,14 @@ const GameOfLife = () => {
     const p5Instance = new p5(sketch, sketchRef.current);
 
     return () => {
-      p5Instance.remove(); // Nettoyer l'instance de P5 à la fin
+      p5Instance.remove();
     };
   }, []);
 
-  return <div className='game-of-life' ref={sketchRef}></div>;
+  return <div className='game-of-life' ref={sketchRef}> 
+  <span style={{ display: 'none' }}>Hi there ! this is the Game of Life, a cellular automaton devised by the mathematician John Conway. 
+  It simulates the birth and death of cells based on simple rules, creating complex patterns over time. Thanks for taking a look! – Axel </span>
+    </div>;
 };
 
 export default GameOfLife;

@@ -18,24 +18,17 @@ const P5Component = () => {
         cols = Math.floor(p.width / resolution);
         rows = Math.floor(p.height / resolution);
 
-        // Initialiser la grille
         grid = make2DArray(cols, rows);
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
-            grid[i][j] = 0; // Toutes les cellules sont mortes
+            grid[i][j] = 0;
           }
         }
 
-        // Ajouter le premier Glider Gun dans le coin supérieur gauche
-        createSimpleGliderGun(20, 20); // Positionner le premier Glider Gun
-
-        // Ajouter le second Glider Gun dans le coin supérieur droit
-        createRightGliderGun(cols - 40, 20); // Positionner le deuxième Glider Gun vers le centre
-
-        // Afficher l'état initial sans évolution
+        createSimpleGliderGun(20, 20);
+        createRightGliderGun(cols - 40, 20);
         drawGrid(p, grid, cols, rows, resolution);
 
-        // Démarrer le jeu après un délai
         setTimeout(() => {
           gameStarted = true;
         }, 500);
@@ -46,7 +39,6 @@ const P5Component = () => {
 
         p.background(0);
 
-        // Dessiner la grille
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
             let x = i * resolution;
@@ -61,13 +53,11 @@ const P5Component = () => {
 
         let next = make2DArray(cols, rows);
 
-        // Calculer la prochaine génération
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
             let state = grid[i][j];
             let neighbors = countNeighbors(grid, i, j);
 
-            // Appliquer les règles du jeu
             if (state === 0 && neighbors === 3) {
               next[i][j] = 1;
             } else if (state === 1 && (neighbors < 2 || neighbors > 3)) {
@@ -78,11 +68,9 @@ const P5Component = () => {
           }
         }
 
-        // Mettre à jour la grille
         grid = next;
       };
 
-      // Fonction pour créer un tableau 2D
       function make2DArray(cols, rows) {
         let arr = new Array(cols);
         for (let i = 0; i < arr.length; i++) {
@@ -91,7 +79,6 @@ const P5Component = () => {
         return arr;
       }
 
-      // Fonction pour dessiner la grille statique
       function drawGrid(p, grid, cols, rows, resolution) {
         p.background(0);
         for (let i = 0; i < cols; i++) {
@@ -107,7 +94,6 @@ const P5Component = () => {
         }
       }
 
-      // Compter les voisins vivants
       function countNeighbors(grid, x, y) {
         let sum = 0;
         for (let i = -1; i <= 1; i++) {
@@ -121,7 +107,6 @@ const P5Component = () => {
         return sum;
       }
 
-      // Fonction pour créer le Glider Gun simple (Gosper Glider Gun)
       function createSimpleGliderGun(midX, midY) {
         const gunPattern = [
           [midX, midY + 4], [midX, midY + 5], [midX + 1, midY + 4], [midX + 1, midY + 5],
@@ -144,7 +129,6 @@ const P5Component = () => {
         });
       }
 
-      // Fonction pour créer le second Glider Gun en direction du centre
       function createRightGliderGun(midX, midY) {
         const gunPattern = [
           [midX, midY + 4], [midX, midY + 5], [midX - 1, midY + 4], [midX - 1, midY + 5],

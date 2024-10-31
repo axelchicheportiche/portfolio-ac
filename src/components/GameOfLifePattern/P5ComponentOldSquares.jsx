@@ -9,12 +9,11 @@ const P5Component = () => {
       const squares = [];
       const squareSize = 20;
       const spacing = 30;
-      const fadeDuration = 500; // Durée de transition de 0.5 seconde
+      const fadeDuration = 500;
 
       p.setup = () => {
         p.createCanvas(p.windowWidth, p.windowHeight);
 
-        // Initialisation des carrés avec leurs positions et état
         for (let x = spacing / 2; x < p.width; x += spacing) {
           for (let y = spacing / 2; y < p.height; y += spacing) {
             squares.push({ x, y, colorValue: 255, lastHovered: null });
@@ -23,47 +22,39 @@ const P5Component = () => {
       };
 
       p.draw = () => {
-        p.background(0); // Fond noir
+        p.background(0);
 
-        // Boucle pour dessiner et gérer les carrés
         squares.forEach(square => {
-          // Calculer la distance entre la souris et le centre du carré
           const d = p.dist(p.mouseX, p.mouseY, square.x, square.y);
 
-          // Si la souris est au-dessus du carré, on change sa couleur
           if (d < squareSize / 2) {
-            square.colorValue = 0; // Noir
-            square.lastHovered = p.millis(); // Enregistrer le moment du survol
+            square.colorValue = 0;
+            square.lastHovered = p.millis();
           } else if (square.lastHovered) {
-            // Calcule combien de temps s'est écoulé depuis le survol
             const timeSinceHovered = p.millis() - square.lastHovered;
 
-            // Si moins de fadeDuration, on fait la transition vers blanc
             if (timeSinceHovered < fadeDuration) {
               const progress = timeSinceHovered / fadeDuration;
-              square.colorValue = p.lerp(0, 255, progress); // Transition progressive
+              square.colorValue = p.lerp(0, 255, progress);
             } else {
-              square.colorValue = 255; // Complètement blanc après la transition
+              square.colorValue = 255;
             }
           }
 
-          // Dessiner le carré avec la couleur actuelle
           p.fill(square.colorValue);
           p.noStroke();
-          // Dessiner le carré à partir de son centre (ajuster avec -squareSize / 2)
           p.rect(square.x - squareSize / 2, square.y - squareSize / 2, squareSize, squareSize);
         });
       };
 
-      // Redimensionner le canvas lorsque la fenêtre est redimensionnée
       p.windowResized = () => {
         p.resizeCanvas(p.windowWidth, p.windowHeight);
-        p.redraw(); // Redessiner les carrés après redimensionnement
+        p.redraw();
       };
     }, sketchRef.current);
 
     return () => {
-      sketch.remove(); // Cleanup P5 instance on component unmount
+      sketch.remove();
     };
   }, []);
 
