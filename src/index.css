@@ -22,6 +22,7 @@ body {
   margin: 0;
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1));
   margin-bottom: 90px;
+  overflow-x: hidden;
 }
 
 a {
@@ -34,7 +35,8 @@ a:hover {
 }
 
 .container-g {
-  margin: 0em;
+  margin: 0;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center; 
@@ -44,7 +46,7 @@ a:hover {
 }
 @media (max-width: 768px) {
   .container-g {
-      padding: 0 10px; /* Petites marges de 10px sur les côtés */
+      overflow-x: hidden;
   }
 }
 

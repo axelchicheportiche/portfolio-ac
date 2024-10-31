@@ -16,7 +16,7 @@ const Experience = () => {
   return (
     <div className="experience-container">
       <h1>Experience</h1>
-      <div className="accordion">
+      
         {data.map((item, i) => (
           <div className="item" key={i}>
             <div className="experience" onClick={() => toggle(i)}>
@@ -36,7 +36,7 @@ const Experience = () => {
             </div>
           </div>
         ))}
-      </div>
+      
     </div>
   );
 };
