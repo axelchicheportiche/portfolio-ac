@@ -65,7 +65,7 @@ const data = [
   {
     name: "Adopte un meuble",
     description:
-      "Développement complet d’une plateforme de vente de meubles d’occasion en équipe, de la conception à la mise en production.",
+      "Complete development of a second-hand furniture sales platform in a team, from design to production.",
     stack: "React, CSS, Node, Express, Sequelize",
     buttonLink: "https://github.com/adatechschool/projet-plateforme-de-vente-de-meubles-adopteunmeuble",
   },
