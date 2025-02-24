@@ -35,6 +35,12 @@ const Projects = () => {
 
 const data = [
   {
+    "name": "Dreamachine.love",
+    "description": "A fully dynamic website for Dreamachine, powered by a headless CMS with automated content updates.",
+    "stack": "React, Strapi, Vercel, Cron Jobs",
+    "buttonLink": "http://dreamachine.love"
+  },
+  {
     name: "Battleground",
     description:
       "(Project in progress in collaboration with two senior developers) SaaS designed for CrossFit competition organizers and athletes, facilitating the management of sports events.",
