@@ -3,10 +3,30 @@ import "./Skills.css";
 
 const Skills = () => {
   const skills = [
-    "Javascript", "TypeScript", "Python", "MySQL", "React",
-    "Node.js", "HTML", "Tailwind", "CSS", "Postman",
-    "P5.js", "Git", "Docker", "Figma", "Photoshop",
-    "Golang", "Google Analytics"
+    "Javascript", 
+    "React", 
+    "PHP", 
+    "Prestashop", 
+    "TypeScript", 
+    "MySQL", 
+    "Node.js", 
+    "HTML", 
+    "CSS", 
+    "Tailwind", 
+    "Docker", 
+    "Git", 
+    "DigitalOcean", 
+    "Python", 
+    "Postman", 
+    "Figma", 
+    "Photoshop", 
+    "SEO", 
+    "Google Analytics", 
+    "Semrush", 
+    "Ansible", 
+    "Golang", 
+    "P5.js", 
+    "Solidpepper"
   ];
 
   return (
@@ -18,6 +38,9 @@ const Skills = () => {
             <div className="bubble-skill">{skill}</div>
           </div>
         ))}
+      </div>
+      <div>
+        <img src="https://www.codewars.com/users/rtbt.axel.c/badges/large" alt="Badge Codewars" />
       </div>
     </div>
   );
