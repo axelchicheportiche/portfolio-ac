@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Honk&family=Oswald:wght@200..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 
 
@@ -52,7 +51,7 @@ a:hover {
 h1 {
   color: #FFF;
   text-align: center;
-  font-family: 'GrandSlang';
+  font-family: 'Honk';
   font-size: 60px;
   font-style: normal;
   font-weight: 400;

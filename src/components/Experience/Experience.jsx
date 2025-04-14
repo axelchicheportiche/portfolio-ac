@@ -43,6 +43,12 @@ const Experience = () => {
 
 const data = [
   {
+    experience: "2025 - Present - Progarden",
+    role: "Web Developer",
+    content:
+      "Manage and maintain a network of four Prestashop-based e-commerce websites. Handle hosting, maintenance, SEO optimization, and complete website redesigns. Connect and integrate new technologies such as ERP and PIM systems to streamline business operations. Oversee technical upgrades, improve website performance, and manage the integration of third-party services.",
+  },
+  {
     experience: "2021-2023 - Centre Commercial / Veja Fair Trade",
     role: "E-commerce Project Manager",
     content:
