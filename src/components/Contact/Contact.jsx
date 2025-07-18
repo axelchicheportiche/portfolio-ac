@@ -9,10 +9,10 @@ const Contact = () => {
         <div className="contact">
             <h1>Contacts</h1>
             <div className="icon-box">
-            <a  href="mailto:axelchicheportiche@gmail.com" target="_blank" rel="noopener noreferrer">
+            <a  href="mailto:portfolio@st4m.fr" target="_blank" rel="noopener noreferrer">
                 <img src={EmailIcon} alt="mail icon" className="contact-icon" />
             </a>
-            <a  href="https://www.linkedin.com/in/axel-chicheportiche/" target="_blank" rel="noopener noreferrer">
+            <a  href="https://www.linkedin.com/in/axel-st4m/" target="_blank" rel="noopener noreferrer">
                 <img src={LinkedinLogo} alt="logo linkedin" className="contact-icon" />
             </a>
             <a  href="https://github.com/axelchicheportiche/" target="_blank" rel="noopener noreferrer">
